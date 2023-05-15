@@ -164,4 +164,4 @@ app.get("/directors/:directorId/movies/", async (request, response) => {
   response.send(op);
 });
 
-module.exprots = app;
+module.exports = app;
