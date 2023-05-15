@@ -144,13 +144,24 @@ app.get("/directors", async (request, response) => {
 
 app.get("/directors/:directorId/movies/", async (request, response) => {
   const { directorId } = request.params;
+//   const movieByDirectorIdQuery = `
+//   SELECT movie.movie_name
+//   FROM movie INNER JOIN director ON movie.director_id = director.director_id
+//   ORDER BY movie_name;`;
+  
   const movieByDirectorIdQuery = `
-  SELECT movie.movie_name
-  FROM movie INNER JOIN director ON movie.director_id = director.director_id
-  ORDER BY movie_name;`;
+  SELECT
+      movie_name
+    FROM
+      movie
+    WHERE
+      director_id='${directorId}';`;
+  `
 
   const movieArray = await db.all(movieByDirectorIdQuery);
   const op = movieArray.map((eachMovie) => movieconvertToCamelCase(eachMovie));
   // console.log(op);
   response.send(op);
 });
+
+module.exprots = app;
